@@ -1,0 +1,18 @@
+{
+  "name": "csv-json-project",
+  "version": "1.0.0",
+  "description": "converts csv to json",
+  "main": "index.js",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=frontend\" \"npm run dev --workspace=backend\""
+  },
+  "author": "hippo",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

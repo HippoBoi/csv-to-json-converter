@@ -8,7 +8,6 @@ import CSVList from './components/CSVList';
 
 export const APP_STATUS = {
     IDLE: "idle",
-    ERROR: "error",
     READY_UPLOAD: "ready_upload",
     UPLOADING: "uploading",
     READY_USAGE: "ready_usage"
@@ -39,7 +38,7 @@ function App() {
             return;
         }
         if (file.size > maxSize) {
-            setAppStatus(APP_STATUS.ERROR);
+            setAppStatus(APP_STATUS.READY_UPLOAD);
             toast.error("File size is bigger than 1 MB")
             return;
         }
@@ -48,7 +47,7 @@ function App() {
         const [error, newData] = await uploadFile(file);
 
         if (error) {
-            setAppStatus(APP_STATUS.ERROR);
+            setAppStatus(APP_STATUS.READY_UPLOAD);
             toast.error(error.message);
             return;
         }
