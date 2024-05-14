@@ -5,6 +5,7 @@ import { Data, uploadFile } from './services/api-client';
 import { Toaster, toast } from 'sonner';
 import Search from './components/Search';
 import CSVList from './components/CSVList';
+import WaitScreen from './components/WaitScreen';
 
 export const APP_STATUS = {
     IDLE: "idle",
@@ -33,7 +34,7 @@ function App() {
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         const maxSize = 1000000; // 1 MB
-        
+
         if (appStatus !== "ready_upload" || !file) {
             return;
         }
@@ -42,7 +43,6 @@ function App() {
             toast.error("File size is bigger than 1 MB")
             return;
         }
-        setAppStatus("uploading");
 
         const [error, newData] = await uploadFile(file);
 
@@ -77,7 +77,15 @@ function App() {
                 <ProfileForm 
                     appStatus={appStatus} 
                     onInputChange={handleInputChange}
-                    onSubmit={handleSubmit} />
+                    onSubmit={(event) => {
+                        console.log("uplodig nooww", appStatus);
+                        setAppStatus("uploading");
+                        handleSubmit(event);
+                    }} />
+
+                {appStatus === APP_STATUS.UPLOADING && (
+                    <WaitScreen />
+                )}
                 
                 {appStatus === APP_STATUS.READY_USAGE && (
                     <VStack marginTop={"30px"}>
