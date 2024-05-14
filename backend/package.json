@@ -1,16 +1,14 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "sunflowers site backend",
+  "description": "csv-json site backend",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "backend",
-    "plants",
-    "sunflower"
+    "backend"
   ],
   "author": "hippo",
   "license": "ISC",

@@ -6,13 +6,14 @@ export interface ApiUploadResponse {
 export interface ApiSearchResponse {
     data: Data;
 }
+export const url = "https://csv-to-json-converter-hippo.onrender.com" as const;
 
 export const uploadFile = async (file: File): Promise<[Error | null, Data?]> => {
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-        const res = await fetch("http://localhost:3000/api/files", {
+        const res = await fetch(`${url}/api/files`, {
             method: "POST",
             body: formData
         });
@@ -30,7 +31,7 @@ export const uploadFile = async (file: File): Promise<[Error | null, Data?]> => 
 
 export const searchData = async (search: string): Promise<[Error | null, Data?]> => {
     try {
-        const res = await fetch(`http://localhost:3000/api/users?q=${search}`, { method: "GET" });
+        const res = await fetch(`${url}/api/users?q=${search}`, { method: "GET" });
 
         if (!res.ok) return([new Error(`Error buscando datos: ${res.statusText}`)]);
         const json = await res.json() as ApiSearchResponse;
