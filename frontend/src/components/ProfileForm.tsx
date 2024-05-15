@@ -14,7 +14,7 @@ const ProfileForm = ({ appStatus, onSubmit, onInputChange }: Props) => {
                 <Text 
                     fontWeight={"bold"} 
                     align={"center"}
-                    color={"yellow.600"}>
+                    color={"red.600"}>
                     Select a CSV file to convert.
                 </Text>
                 <input 

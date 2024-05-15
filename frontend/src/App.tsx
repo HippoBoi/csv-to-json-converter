@@ -43,6 +43,8 @@ function App() {
             toast.error("File size is bigger than 1 MB")
             return;
         }
+        console.log("uplodig nooww", appStatus);
+        setAppStatus("uploading");
 
         const [error, newData] = await uploadFile(file);
 
@@ -78,8 +80,6 @@ function App() {
                     appStatus={appStatus} 
                     onInputChange={handleInputChange}
                     onSubmit={(event) => {
-                        console.log("uplodig nooww", appStatus);
-                        setAppStatus("uploading");
                         handleSubmit(event);
                     }} />
 
