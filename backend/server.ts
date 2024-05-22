@@ -11,6 +11,17 @@ const upload = multer({ storage: storage });
 
 let userData: Array<Record<string, string>> = [];
 
+function detectDelimiter(csv: string): string {
+    const delimiters = [',', ';'];
+    const lines = csv.split('\n').slice(0, 5);
+    const delimiterCount = delimiters.map(delimiter =>
+        lines.reduce((count, line) => count + (line.split(delimiter).length - 1), 0)
+    );
+
+    const maxCountIndex = delimiterCount.indexOf(Math.max(...delimiterCount));
+    return delimiters[maxCountIndex];
+}
+
 app.use(cors());
 
 app.post("/api/files", upload.single("file"), async (req, res) => {
@@ -28,9 +39,8 @@ app.post("/api/files", upload.single("file"), async (req, res) => {
 
     try {
         const csv = Buffer.from(file.buffer).toString("utf-8");
-
-        console.log(csv);
-        json = csvToJson.csvStringToJson(csv);
+        const delimiter = detectDelimiter(csv);
+        json = csvToJson.fieldDelimiter(delimiter).csvStringToJson(csv);
     } catch (error) {
         return(res.status(500).json({ message: "Error convirtiendo el archivo" }));
     }
