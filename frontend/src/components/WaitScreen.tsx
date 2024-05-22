@@ -13,7 +13,7 @@ const WaitScreen = () => {
     }, []);
 
     return (
-        <VStack marginTop={"30px"}>
+        <VStack marginTop={"20px"}>
             <Text color={"pink.400"} as={"i"} fontWeight={"bold"}>
                 Please wait. This may take up to a minute...
             </Text>

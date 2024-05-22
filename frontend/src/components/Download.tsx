@@ -41,11 +41,7 @@ const Download = ({ appStatus }: Props) => {
     }, [appStatus])
 
     return (
-        <VStack marginTop={"80px"}>
-            <Text fontWeight={"bold"} color={appStatus === APP_STATUS.READY_USAGE ? 'pink.600' : "gray.400"}>
-                Download converted file
-            </Text>
-
+        <VStack marginTop={"70px"}>
             <Button
                 onClick={() => {
                     appStatus === APP_STATUS.READY_USAGE 

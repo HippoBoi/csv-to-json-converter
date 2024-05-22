@@ -84,14 +84,14 @@ function App() {
                         handleSubmit(event);
                     }} />
 
+                <Download appStatus={appStatus} />
+
                 {appStatus === APP_STATUS.UPLOADING && (
                     <WaitScreen />
                 )}
-                
-                <Download appStatus={appStatus} />
 
                 {appStatus === APP_STATUS.READY_USAGE && (
-                    <VStack marginTop={"70px"}>
+                    <VStack marginTop={"50px"}>
                         <Search initialData={data} onSearchChange={(newData) => setCsvData(newData)} />
                         <CSVList csvData={csvData} />
                     </VStack>
