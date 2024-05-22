@@ -6,6 +6,7 @@ import { Toaster, toast } from 'sonner';
 import Search from './components/Search';
 import CSVList from './components/CSVList';
 import WaitScreen from './components/WaitScreen';
+import Download from './components/Download';
 
 export const APP_STATUS = {
     IDLE: "idle",
@@ -35,7 +36,7 @@ function App() {
         event.preventDefault();
         const maxSize = 1000000; // 1 MB
 
-        if (appStatus !== "ready_upload" || !file) {
+        if (appStatus !== APP_STATUS.READY_UPLOAD || !file) {
             return;
         }
         if (file.size > maxSize) {
@@ -87,8 +88,10 @@ function App() {
                     <WaitScreen />
                 )}
                 
+                <Download appStatus={appStatus} />
+
                 {appStatus === APP_STATUS.READY_USAGE && (
-                    <VStack marginTop={"30px"}>
+                    <VStack marginTop={"70px"}>
                         <Search initialData={data} onSearchChange={(newData) => setCsvData(newData)} />
                         <CSVList csvData={csvData} />
                     </VStack>

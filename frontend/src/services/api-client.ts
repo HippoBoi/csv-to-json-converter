@@ -29,6 +29,22 @@ export const uploadFile = async (file: File): Promise<[Error | null, Data?]> => 
     return([new Error("Unknown error")]);
 };
 
+export const getFileUrl = async (): Promise<[Error | null, string?]> => {
+    try {
+        const res = await fetch(`${url}/api/download`, { method: "GET" });
+
+        if (!res.ok) return([new Error(`Error descargando archivo: ${res.statusText}`)]);
+        const blob = await res.blob();
+        const fileURL = window.URL.createObjectURL(blob);
+        
+        return([null, fileURL]);
+    } catch (error) {
+        if (error instanceof Error) return([error]);
+    }
+
+    return([new Error("Unknown error")]);
+};
+
 export const searchData = async (search: string): Promise<[Error | null, Data?]> => {
     try {
         const res = await fetch(`${url}/api/users?q=${search}`, { method: "GET" });

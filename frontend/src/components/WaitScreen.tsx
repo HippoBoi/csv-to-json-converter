@@ -7,7 +7,7 @@ const WaitScreen = () => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setShowMessge(true);
-        }, 5000) // 5 seg
+        }, 6000) // 6 seg
 
         return () => clearTimeout(timeout);
     }, []);

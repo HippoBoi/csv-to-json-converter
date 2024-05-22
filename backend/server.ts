@@ -10,6 +10,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 let userData: Array<Record<string, string>> = [];
+let convertedFile: string | null = null;
 
 function detectDelimiter(csv: string): string {
     const delimiters = [',', ';'];
@@ -46,8 +47,19 @@ app.post("/api/files", upload.single("file"), async (req, res) => {
     }
 
     userData = json;
+    convertedFile = JSON.stringify(json, null, 2);
 
     return(res.status(200).json({ data: json, message: "Archivo cargado correctamente." }));
+});
+
+app.get("/api/download", async (req, res) => {
+    if (!convertedFile) {
+        return(res.status(500).json({ message: "No hay archivo subido o guardado." }));
+    }
+
+    res.setHeader("Content-disposition", "attachment; filename=converted.json");
+    res.setHeader("Content-type", "application/json");
+    res.send(convertedFile);
 });
 
 app.get("/api/users", async (req, res) => {
